@@ -29,8 +29,13 @@
 .\_build\app_timer2.o: ..\..\..\..\..\..\components\libraries\experimental_section_vars\nrf_section.h
 .\_build\app_timer2.o: ..\..\..\..\..\..\components\libraries\log\nrf_log_types.h
 .\_build\app_timer2.o: ..\..\..\..\..\..\components\libraries\sortlist\nrf_sortlist.h
-.\_build\app_timer2.o: ..\..\..\..\..\..\components\libraries\atomic_fifo\nrf_atfifo.h
+.\_build\app_timer2.o: ..\..\..\..\ble_app_hrs_freertos\config\FreeRTOSConfig.h
+.\_build\app_timer2.o: ..\..\..\..\..\..\components\softdevice\s140\headers\nrf_soc.h
+.\_build\app_timer2.o: ..\..\..\..\..\..\components\softdevice\s140\headers\nrf_error_soc.h
+.\_build\app_timer2.o: ..\..\..\..\..\..\components\libraries\util\app_util_platform.h
+.\_build\app_timer2.o: ..\..\..\..\..\..\components\softdevice\s140\headers\nrf_nvic.h
 .\_build\app_timer2.o: ..\..\..\..\..\..\components\libraries\util\nrf_assert.h
+.\_build\app_timer2.o: ..\..\..\..\..\..\components\libraries\atomic_fifo\nrf_atfifo.h
 .\_build\app_timer2.o: ..\..\..\..\..\..\components\libraries\delay\nrf_delay.h
 .\_build\app_timer2.o: ..\..\..\..\..\..\modules\nrfx\nrfx.h
 .\_build\app_timer2.o: ..\..\..\..\..\..\integration\nrfx\nrfx_config.h
@@ -41,10 +46,6 @@
 .\_build\app_timer2.o: ..\..\..\..\..\..\integration\nrfx\legacy/apply_old_config.h
 .\_build\app_timer2.o: ..\..\..\..\..\..\modules\nrfx\soc/nrfx_irqs.h
 .\_build\app_timer2.o: ..\..\..\..\..\..\modules\nrfx\soc/nrfx_irqs_nrf52840.h
-.\_build\app_timer2.o: ..\..\..\..\..\..\components\libraries\util\app_util_platform.h
-.\_build\app_timer2.o: ..\..\..\..\..\..\components\softdevice\s140\headers\nrf_soc.h
-.\_build\app_timer2.o: ..\..\..\..\..\..\components\softdevice\s140\headers\nrf_error_soc.h
-.\_build\app_timer2.o: ..\..\..\..\..\..\components\softdevice\s140\headers\nrf_nvic.h
 .\_build\app_timer2.o: ..\..\..\..\..\..\modules\nrfx\soc/nrfx_coredep.h
 .\_build\app_timer2.o: ..\..\..\..\..\..\modules\nrfx\soc/nrfx_atomic.h
 .\_build\app_timer2.o: ..\..\..\..\..\..\modules\nrfx\nrfx.h

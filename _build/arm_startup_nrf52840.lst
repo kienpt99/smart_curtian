@@ -541,21 +541,26 @@ ce\s140\headers -I..\..\..\..\..\..\components\softdevice\s140\headers\nrf52 -I
 \..\..\..\..\..\external\utf_converter -I..\..\..\..\..\..\integration\nrfx -I.
 .\..\..\..\..\..\integration\nrfx\legacy -I..\..\..\..\..\..\modules\nrfx -I..\
 ..\..\..\..\..\modules\nrfx\drivers\include -I..\..\..\..\..\..\modules\nrfx\ha
-l -I..\config -I.\RTE\_nrf52840_xxaa -IC:\Users\Admin\AppData\Local\Arm\Packs\A
-RM\CMSIS\5.6.0\CMSIS\Core\Include -IC:\Users\Admin\AppData\Local\Arm\Packs\Nord
-icSemiconductor\nRF_DeviceFamilyPack\8.35.0\Device\Include --predefine="__MICRO
-LIB SETA 1" --predefine="__UVISION_VERSION SETA 531" --predefine="_RTE_ SETA 1"
- --predefine="NRF52840_XXAA SETA 1" --predefine="_RTE_ SETA 1" --predefine="APP
-_TIMER_V2 SETA 1" --predefine="APP_TIMER_V2_RTC1_ENABLED SETA 1" --predefine="B
-OARD_PCA10056 SETA 1" --predefine="CONFIG_GPIO_AS_PINRESET SETA 1" --predefine=
-"FLOAT_ABI_HARD SETA 1" --predefine="NRF52840_XXAA SETA 1" --predefine="NRF_SD_
-BLE_API_VERSION SETA 7" --predefine="S140 SETA 1" --predefine="SOFTDEVICE_PRESE
-NT SETA 1" --predefine="__HEAP_SIZE SETA 8192" --predefine="__STACK_SIZE SETA 8
-192" --cpreproc_opts=-DAPP_TIMER_V2,-DAPP_TIMER_V2_RTC1_ENABLED,-DBOARD_PCA1005
-6,-DCONFIG_GPIO_AS_PINRESET,-DFLOAT_ABI_HARD,-DNRF52840_XXAA,-DNRF_SD_BLE_API_V
-ERSION=7,-DS140,-DSOFTDEVICE_PRESENT,-D__HEAP_SIZE=8192,-D__STACK_SIZE=8192 --l
-ist=.\_build\arm_startup_nrf52840.lst RTE\Device\nRF52840_xxAA\arm_startup_nrf5
-2840.s
+l -I..\config -I..\..\..\..\..\..\external\fprintf -I..\..\..\..\..\..\external
+\freertos\config -I..\..\..\..\..\..\external\freertos\portable\ARM\nrf52 -I..\
+..\..\..\..\..\external\freertos\portable\CMSIS\nrf52 -I..\..\..\..\..\..\exter
+nal\freertos\source\include -I..\..\..\..\..\..\external\segger_rtt -I..\..\..\
+..\..\..\external\utf_converter -I..\..\..\..\..\..\external\freertos\portable\
+GCC\nrf52 -I..\..\..\..\..\..\components\softdevice\common -I.\RTE\_nrf52840_xx
+aa -IC:\Users\Admin\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include 
+-IC:\Users\Admin\AppData\Local\Arm\Packs\NordicSemiconductor\nRF_DeviceFamilyPa
+ck\8.35.0\Device\Include --predefine="__MICROLIB SETA 1" --predefine="__UVISION
+_VERSION SETA 531" --predefine="_RTE_ SETA 1" --predefine="NRF52840_XXAA SETA 1
+" --predefine="_RTE_ SETA 1" --predefine="APP_TIMER_V2 SETA 1" --predefine="APP
+_TIMER_V2_RTC1_ENABLED SETA 1" --predefine="BOARD_PCA10056 SETA 1" --predefine=
+"CONFIG_GPIO_AS_PINRESET SETA 1" --predefine="FLOAT_ABI_HARD SETA 1" --predefin
+e="NRF52840_XXAA SETA 1" --predefine="NRF_SD_BLE_API_VERSION SETA 7" --predefin
+e="S140 SETA 1" --predefine="SOFTDEVICE_PRESENT SETA 1" --predefine="__HEAP_SIZ
+E SETA 8192" --predefine="__STACK_SIZE SETA 8192" --cpreproc_opts=-DAPP_TIMER_V
+2,-DAPP_TIMER_V2_RTC1_ENABLED,-DBOARD_PCA10056,-DCONFIG_GPIO_AS_PINRESET,-DFLOA
+T_ABI_HARD,-DNRF52840_XXAA,-DNRF_SD_BLE_API_VERSION=7,-DS140,-DSOFTDEVICE_PRESE
+NT,-D__HEAP_SIZE=8192,-D__STACK_SIZE=8192 --list=.\_build\arm_startup_nrf52840.
+lst RTE\Device\nRF52840_xxAA\arm_startup_nrf52840.s
 
 
 

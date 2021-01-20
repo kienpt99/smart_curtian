@@ -1,7 +1,13 @@
+// Freertos
+// Note
+// mode 2 
+// mode 1 
+// not sure
+// ble+
+// do nothing 
 #include <stdbool.h>
 #include <stdint.h>
 #include <string.h>
-
 #include "nordic_common.h"
 #include "nrf.h"
 #include "app_error.h"
@@ -14,7 +20,7 @@
 #include "nrf_sdh.h"
 #include "nrf_sdh_soc.h"
 #include "nrf_sdh_ble.h"
-#include "app_timer.h"
+#include "nrf_sdh_freertos.h"
 #include "fds.h"
 #include "peer_manager.h"
 #include "bsp_btn_ble.h"
@@ -25,6 +31,16 @@
 #include "nrf_pwr_mgmt.h"
 #include "boards.h"
 #include "nrf_delay.h"
+#include "nrf_drv_gpiote.h"
+#include "nrf_drv_saadc.h"
+
+// Freertos: include thu vien freertos
+#include "FreeRTOS.h"
+#include "task.h" 
+#include "timers.h" 
+#include "queue.h"
+#include "semphr.h"
+#include "app_timer.h"
 
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
@@ -32,14 +48,13 @@
 #include "nrf_drv_clock.h"
 
 #include "service/our_service.h"
-#include "dong_co.h"
 
 
-#define DEVICE_NAME                     "OurCharacteristic"                       /**< Name of device. Will be included in the advertising data. */
+#define DEVICE_NAME                     "Smart_Curtian"                       /**< Name of device. Will be included in the advertising data. */
 #define MANUFACTURER_NAME               "NordicSemiconductor"                   /**< Manufacturer. Will be passed to Device Information Service. */
 #define APP_ADV_INTERVAL                300                                     /**< The advertising interval (in units of 0.625 ms. This value corresponds to 187.5 ms). */
 
-#define APP_ADV_DURATION                18000                                   /**< The advertising duration (180 seconds) in units of 10 milliseconds. */
+#define APP_ADV_DURATION                65535                                   /**< The advertising duration (180 seconds) in units of 10 milliseconds. */
 #define APP_BLE_OBSERVER_PRIO           3                                       /**< Application's BLE observer priority. You shouldn't need to modify this value. */
 #define APP_BLE_CONN_CFG_TAG            1                                       /**< A tag identifying the SoftDevice BLE configuration. */
 
@@ -52,6 +67,10 @@
 #define NEXT_CONN_PARAMS_UPDATE_DELAY   APP_TIMER_TICKS(30000)                  /**< Time between each call to sd_ble_gap_conn_param_update after the first call (30 seconds). */
 #define MAX_CONN_PARAMS_UPDATE_COUNT    3                                       /**< Number of attempts before giving up the connection parameter negotiation. */
 
+
+#define READ_ADC_INTERVAL         			10000                                 /**< Freertos: Read adc interval (ms). */
+#define DONG_CO_TIMER_INTERVAL 					2000																/**< Freertos: Control motor interval (ms). */
+
 #define SEC_PARAM_BOND                  1                                       /**< Perform bonding. */
 #define SEC_PARAM_MITM                  0                                       /**< Man In The Middle protection not required. */
 #define SEC_PARAM_LESC                  0                                       /**< LE Secure Connections not enabled. */
@@ -63,6 +82,19 @@
 
 #define DEAD_BEEF                       0xDEADBEEF                              /**< Value used as error code on stack dump, can be used to identify stack location on stack unwind. */
 
+// Freertos
+#define OSTIMER_WAIT_FOR_QUEUE              2                                       /**< Number of ticks to wait for the timer queue to be ready */
+
+// Note: Configure pin to control curtain.
+#define open_curtain 15
+#define close_curtain 16 
+
+// Note mode 2: Configure button to control curtain directly.
+#define BTN_open_curtain 24 
+#define BTN_close_curtain 25 
+
+// Note: Definition of state variable of curtain. curtain_state_global = 0 (close) | curtain_state_global = 1 (open)
+uint8_t curtain_state_global = 2 ;
 
 NRF_BLE_GATT_DEF(m_gatt);                                                       /**< GATT module instance. */
 NRF_BLE_QWR_DEF(m_qwr);                                                         /**< Context for the Queued Write module.*/
@@ -71,36 +103,156 @@ BLE_ADVERTISING_DEF(m_advertising);                                             
 static uint16_t m_conn_handle = BLE_CONN_HANDLE_INVALID;                        /**< Handle of the current connection. */
 
 
-// FROM_SERVICE_TUTORIAL: Declare a service structure for our application
-ble_os_t m_our_service;
+// ble+: khai bao cac service duoc su dung.
+ble_os_t m_our_service; // service on/off
+ble_os_t timer_service; // service hen gio 
+ble_os_t mode_selec_service; // service chuyen mode
 
-// Use UUIDs for service(s) used in your application.
+
+// ble+: khai bai bien de adv uuid 
 static ble_uuid_t m_adv_uuids[] =                                               /**< Universally unique service identifiers. */
 {
-    {BLE_UUID_OUR_SERVICE_UUID, BLE_UUID_TYPE_VENDOR_BEGIN}
+    {BLE_UUID_OUR_SERVICE_UUID, BLE_UUID_TYPE_BLE},
+    {BLE_UUID_TM_SERVICE_UUID, BLE_UUID_TYPE_BLE},
+    {BLE_UUID_MDSL_SERVICE_UUID, BLE_UUID_TYPE_BLE}
 };
 
-uint8_t curtain_state_global = 2 ;
+// mode 1 
+//static TimerHandle_t read_adc_timer;                               // Freertos: tham chieu den timer doc adc.
+static TimerHandle_t dong_co_timer;                               // Freertos: tham chieu den timer dong co.
 
-//APP_TIMER_DEF(m_our_char_timer_id);
-//#define OUR_CHAR_TIMER_INTERVAL     APP_TIMER_TICKS(1000) // 1000 ms intervals
-APP_TIMER_DEF(dong_co_timer);
-#define DONG_CO_TIMER_INTERVAL APP_TIMER_TICKS(2000) // dong mo dong co trong 2s 
+QueueHandle_t xQueue;																							//Freertos: Khai bao queue
+
+#if NRF_LOG_ENABLED
+static TaskHandle_t m_logger_thread;                               // Freertos: Dinh nghia luong logger 
+#endif
+
+//// Freertos mode 1 : Ham callback cua adc_timer de doc gia tri tu adc, va gui du lieu vao message queue.(send)
+//static void read_adc_timer_callback(TimerHandle_t xTimer)
+//{
+//		UNUSED_PARAMETER(xTimer);
+//		BaseType_t xStatus;
+//		nrf_saadc_value_t adc_value;
+//		nrfx_saadc_sample_convert(0,&adc_value);
+//		NRF_LOG_FLUSH();
+//		NRF_LOG_INFO("Gia tri doc duoc cua ADC: %d",adc_value);
+//		if(adc_value > 100)
+//			{
+//				if(curtain_state_global != 1)
+//					{
+//						curtain_state_global = 1;
+//						xStatus = xQueueOverwrite( xQueue, &curtain_state_global); // Freertos: block time = 0, not sure , khong wait khi queue is full.
+//						if( xStatus != pdPASS )
+//						{
+//						/* The send operation could not complete because the queue was full -
+//						this must be an error as the queue should never contain more than
+//						one item! */
+//						NRF_LOG_INFO("Khong gui duoc du lieu den queue ",adc_value);
+//						}
+//					}
+//			}else{
+//				if(curtain_state_global != false)
+//					{
+//						curtain_state_global = 0;
+//						xStatus = xQueueOverwrite( xQueue, &curtain_state_global);; // Freertos: block time = 0, not sure , khong wait khi queue is full.
+//						if( xStatus != pdPASS )
+//						{
+//						/* The send operation could not complete because the queue was full -
+//						this must be an error as the queue should never contain more than
+//						one item! */
+//						NRF_LOG_INFO("Khong gui duoc du lieu den queue ",adc_value);
+//						}
+//					}				
+//			}
+//}
+
+// Freertos: Ham callback cua timer dong co de dieu khien dong co trong 1 khoang tgian.
+static void dong_co_timer_callback(TimerHandle_t xTimer)
+{
+		if(curtain_state_global == 1)
+			{
+				nrf_gpio_pin_clear(open_curtain);
+			}
+		else if(curtain_state_global == 0)
+			{
+				nrf_gpio_pin_clear(close_curtain);				
+			}
+		else
+			{
+				
+			}
+}
+
+// Note mode 1: Ham bo tro cho saadc 
+//void saadc_callback_handler(nrfx_saadc_evt_t const *p_event )
+//	{
+//		
+//	}
+
+//void saadc_init(void)
+//{
+//	uint32_t err_code;
+//	nrf_saadc_channel_config_t channel_config = NRF_DRV_SAADC_DEFAULT_CHANNEL_CONFIG_SE(NRF_SAADC_INPUT_AIN0);
+//	
+//	err_code = nrf_drv_saadc_init(NULL, saadc_callback_handler);
+//	APP_ERROR_CHECK(err_code);
+//	
+//	err_code = nrfx_saadc_channel_init(0,&channel_config);
+//	APP_ERROR_CHECK(err_code);
+//	
+//}
+
+// Note mode 2: Ham callback cua nut mo rem 
+void open_button_callback(nrf_drv_gpiote_pin_t pin , nrf_gpiote_polarity_t action)
+	{
+		nrf_gpio_pin_set(open_curtain); // dieu khien de mo rem
+		curtain_state_global = 1;
+		xTimerStart(dong_co_timer, OSTIMER_WAIT_FOR_QUEUE);
+	}
 	
+// Note mode 2: Ham callback cua nut dong rem 
+void close_button_callback(nrf_drv_gpiote_pin_t pin , nrf_gpiote_polarity_t action)
+	{
+		nrf_gpio_pin_set(close_curtain); // bat dong co quay thuan
+		curtain_state_global = 0;
+		xTimerStart(dong_co_timer, OSTIMER_WAIT_FOR_QUEUE);
+	}
+
+// Note mode 2: Ham khoi tao GPIOTE
+// Delete
+void gpio_init()
+	{
+		uint32_t err_code ;
+		if (!nrf_drv_gpiote_is_init())
+		{
+			err_code = nrf_drv_gpiote_init();
+			APP_ERROR_CHECK(err_code);
+		}
+			nrf_drv_gpiote_in_config_t in_config = GPIOTE_CONFIG_IN_SENSE_HITOLO(true);
+			in_config.pull = NRF_GPIO_PIN_PULLUP;
+			err_code = nrf_drv_gpiote_in_init(BTN_open_curtain,&in_config,open_button_callback);
+			APP_ERROR_CHECK(err_code);
+			err_code = nrf_drv_gpiote_in_init(BTN_close_curtain,&in_config,close_button_callback);	
+			APP_ERROR_CHECK(err_code);
+			nrf_drv_gpiote_in_event_enable(BTN_open_curtain,true);
+			nrf_drv_gpiote_in_event_enable(BTN_close_curtain,true);
+			NRF_LOG_INFO("Da khoi tao xong GPIOTE");
+	}
+
+// Note: Ham khoi tao cac chan dieu khien dong co 
 void dong_co_init(void)
 	{
 		// Cau hinh 2 chan dieu khien dong co la dau ra 
-		nrf_gpio_cfg_output(chieu_thuan);
-		nrf_gpio_cfg_output(chieu_nghich);	
-		// ban dau khong quay thuan cung nhu quay nghich
-		nrf_gpio_pin_clear(chieu_thuan);
-		nrf_gpio_pin_clear(chieu_nghich);
-//		timer_init(TIMER_DONG_CO,timer_dong_co_handler);
+		nrf_gpio_cfg_output(open_curtain);
+		nrf_gpio_cfg_output(close_curtain);	
+		// ban dau khong dong cung nhu khong mo
+		nrf_gpio_pin_clear(open_curtain);
+		nrf_gpio_pin_clear(close_curtain);
 		NRF_LOG_INFO("Da khoi tao dong co");
 	}
 
 
-static void advertising_start(bool erase_bonds);
+static void advertising_start(void * p_erase_bonds);
 
 
 /**@brief Callback function for asserts in the SoftDevice.
@@ -118,31 +270,6 @@ void assert_nrf_callback(uint16_t line_num, const uint8_t * p_file_name)
 {
     app_error_handler(DEAD_BEEF, line_num, p_file_name);
 }
-
-
-
-// ALREADY_DONE_FOR_YOU: This is a timer event handler
-//static void timer_timeout_handler(void * p_context)
-//{
-//    // OUR_JOB: Step 3.F, Update temperature and characteristic value.
-//}
-static void timer_dong_co_handler(void * p_context)
-	{
-		if(curtain_state_global == 1)
-			{
-				nrf_gpio_pin_clear(chieu_thuan);
-			}
-		else if(curtain_state_global == 0)
-			{
-				nrf_gpio_pin_clear(chieu_nghich);				
-			}
-		else
-			{
-				// do nothing 
-			}
-	}
-
-
 
 /**@brief Function for handling Peer Manager events.
  *
@@ -248,15 +375,35 @@ static void pm_evt_handler(pm_evt_t const * p_evt)
  */
 static void timers_init(void)
 {
+// Delete
     // Initialize timer module.
     ret_code_t err_code = app_timer_init();
     APP_ERROR_CHECK(err_code);
 
 
-    // OUR_JOB: Step 3.H, Initiate our timer
-//		app_timer_create(&m_our_char_timer_id,APP_TIMER_MODE_SINGLE_SHOT,timer_timeout_handler);
-		app_timer_create(&dong_co_timer,APP_TIMER_MODE_SINGLE_SHOT,timer_dong_co_handler);
-		
+    // OUR_JOB: Step 3.H, Initiate our timer gan day
+    dong_co_timer = xTimerCreate("Dong co timer",
+                                   DONG_CO_TIMER_INTERVAL,
+                                   pdFALSE,
+                                   NULL,
+                                   dong_co_timer_callback);	
+	
+		// Freertos mode 1 : tao timer
+//    read_adc_timer = xTimerCreate("ADC timer",
+//                                   READ_ADC_INTERVAL,
+//                                   pdTRUE,
+//                                   NULL,
+//                                   read_adc_timer_callback);	
+		// Check loi mode 1
+//    if (NULL == read_adc_timer || NULL == dong_co_timer)
+//    {
+//        APP_ERROR_HANDLER(NRF_ERROR_NO_MEM);
+//    }
+		// Check loi mode 2
+    if (NULL == dong_co_timer)
+    {
+        APP_ERROR_HANDLER(NRF_ERROR_NO_MEM);
+    }
 }
 
 
@@ -317,8 +464,12 @@ static void services_init(void)
 {
 
 	
-	uint32_t         err_code;
+		uint32_t         err_code;
     nrf_ble_qwr_init_t qwr_init = {0};
+		// ble+: khoi tao value ban dau cho characteristic
+		uint8_t value_1 = 0; // 0: mo rem, 1: dong rem
+		uint8_t value_2 = 0;	// 1: mode 1, 2: mode 2
+		uint8_t value_3[6] = {0x12,0x23,0x34,0x45,0x56,0x67};	// ngay/thang/nam/nam/gio/phut
 
     // Initialize Queued Write Module.
     qwr_init.error_handler = nrf_qwr_error_handler;
@@ -326,9 +477,10 @@ static void services_init(void)
     err_code = nrf_ble_qwr_init(&m_qwr, &qwr_init);
     APP_ERROR_CHECK(err_code);
 
-    //FROM_SERVICE_TUTORIAL: Add code to initialize the services used by the application.
-    our_service_init(&m_our_service);
-
+    // ble+: khoi tao cac service da duoc khai bao
+    our_service_init(&m_our_service,BLE_UUID_OUR_BASE_UUID,BLE_UUID_OUR_SERVICE_UUID,BLE_UUID_OUR_CHARACTERISTC_UUID,1,&value_1);
+		our_service_init(&timer_service,BLE_UUID_TMSV_BASE_UUID,BLE_UUID_TM_SERVICE_UUID, BLE_UUID_TM_CHARACTERISTC_UUID,1,&value_2);
+		our_service_init(&mode_selec_service,BLE_UUID_MDSL_BASE_UUID,BLE_UUID_MDSL_SERVICE_UUID, BLE_UUID_MDSL_CHARACTERISTC_UUID,6,value_3);
 }
 
 /**@brief Function for handling the Connection Parameters Module.
@@ -387,10 +539,11 @@ static void conn_params_init(void)
  */
 static void application_timers_start(void)
 {
-    // OUR_JOB: Step 3.I, Start our timer
-//		app_timer_start(m_our_char_timer_id,OUR_CHAR_TIMER_INTERVAL,NULL);
-		
-
+		// Freertos mode 1 : Bat dau chay timer 
+//    if (pdPASS != xTimerStart(read_adc_timer, OSTIMER_WAIT_FOR_QUEUE))
+//    {
+//        APP_ERROR_HANDLER(NRF_ERROR_NO_MEM);
+//    }
 }
 
 
@@ -410,7 +563,8 @@ static void sleep_mode_enter(void)
     APP_ERROR_CHECK(err_code);
 
     // Go to system-off mode (this function will not return; wakeup will cause a reset).
-    err_code = sd_power_system_off();
+		// deep mode
+		err_code = sd_app_evt_wait();
     APP_ERROR_CHECK(err_code);
 }
 
@@ -458,10 +612,7 @@ static void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
         case BLE_GAP_EVT_DISCONNECTED:
             NRF_LOG_INFO("Disconnected.");
             // LED indication will be changed when advertising starts.
- 
-
             break;
-
         case BLE_GAP_EVT_CONNECTED:
             NRF_LOG_INFO("Connected.");
             err_code = bsp_indication_set(BSP_INDICATE_CONNECTED);
@@ -469,9 +620,7 @@ static void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
             m_conn_handle = p_ble_evt->evt.gap_evt.conn_handle;
             err_code = nrf_ble_qwr_conn_handle_assign(&m_qwr, m_conn_handle);
             APP_ERROR_CHECK(err_code);
-
             break;
-
         case BLE_GAP_EVT_PHY_UPDATE_REQUEST:
         {
             NRF_LOG_DEBUG("PHY update request.");
@@ -483,7 +632,6 @@ static void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
             err_code = sd_ble_gap_phy_update(p_ble_evt->evt.gap_evt.conn_handle, &phys);
             APP_ERROR_CHECK(err_code);
         } break;
-
         case BLE_GATTC_EVT_TIMEOUT:
             // Disconnect on GATT Client timeout event.
             NRF_LOG_DEBUG("GATT Client Timeout.");
@@ -491,7 +639,6 @@ static void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
                                              BLE_HCI_REMOTE_USER_TERMINATED_CONNECTION);
             APP_ERROR_CHECK(err_code);
             break;
-
         case BLE_GATTS_EVT_TIMEOUT:
             // Disconnect on GATT Server timeout event.
             NRF_LOG_DEBUG("GATT Server Timeout.");
@@ -499,7 +646,6 @@ static void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
                                              BLE_HCI_REMOTE_USER_TERMINATED_CONNECTION);
             APP_ERROR_CHECK(err_code);
             break;
-
         default:
             // No implementation needed.
             break;
@@ -508,27 +654,77 @@ static void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
 		
 }
 
-///**@brief Function for handling write events to the LED characteristic.
-// *
-// * @param[in] p_led_service  Instance of LED Service to which the write applies.
-// * @param[in] led_state      Written/desired state of the LED.
-// */
+//// Note: Ham mo rem 
+void open_curtain_func(uint8_t curtain_state)
+	{
+			nrf_gpio_pin_set(open_curtain); // mo rem.
+			curtain_state_global = curtain_state;
+			xTimerStart(dong_co_timer, OSTIMER_WAIT_FOR_QUEUE);		
+	}
+	// Note: Ham dong rem 
+void close_curtain_func(uint8_t curtain_state)
+	{
+			nrf_gpio_pin_set(close_curtain); // dong rem.
+			curtain_state_global = curtain_state;
+			xTimerStart(dong_co_timer, OSTIMER_WAIT_FOR_QUEUE);	
+	}
+// Freertos: Task dieu khien dong co(receive)
+static void vControlMotorTask( void *pvParameters )
+{
+	while(true)
+		{
+			/* Declare the variable that will hold the values received from the queue. */
+			NRF_LOG_INFO("Da vao ham dieu khien dong co");
+			uint8_t curtain_state_received;
+			BaseType_t xStatus;
+			xStatus = xQueueReceive( xQueue, &curtain_state_received, portMAX_DELAY );
+			NRF_LOG_INFO("Da qua cau lenh gui du lieu den queue");
+			if( xStatus == pdPASS )
+			{
+				NRF_LOG_INFO( "Received = %d ", curtain_state_received );
+			}else{
+				NRF_LOG_INFO( "Could not receive from the queue.\r\n" );
+			}
+			if (curtain_state_received)
+			{
+					nrf_gpio_pin_set(open_curtain); // mo rem.
+					curtain_state_global = curtain_state_received;
+					xTimerStart(dong_co_timer, OSTIMER_WAIT_FOR_QUEUE);
+			}
+			else
+			{
+					nrf_gpio_pin_set(close_curtain); // dong rem.
+					curtain_state_global = curtain_state_received;
+					xTimerStart(dong_co_timer, OSTIMER_WAIT_FOR_QUEUE);
+			}
+		}
+}
+/**@brief Function for handling write events to the LED characteristic.
+ *
+ * @param[in] p_led_service  Instance of LED Service to which the write applies.
+ * @param[in] led_state      Written/desired state of the LED.
+ */
 static void curtain_write_handler(uint16_t conn_handle, ble_os_t * p_led_service, uint8_t curtain_state)
 {
     if (curtain_state)
     {
-		nrf_gpio_pin_set(chieu_thuan); // bat dong co quay thuan
-		curtain_state_global = curtain_state;
-		app_timer_start(dong_co_timer,DONG_CO_TIMER_INTERVAL,NULL);
+				open_curtain_func(curtain_state);
     }
     else
     {
-		nrf_gpio_pin_set(chieu_nghich); // bat dong co quay nguoc
-		curtain_state_global = curtain_state;
-		app_timer_start(dong_co_timer,DONG_CO_TIMER_INTERVAL,NULL);
+				close_curtain_func(curtain_state);
     }
 }
 
+static void timer_service_callback(uint16_t conn_handle, ble_os_t * p_led_service, uint8_t curtain_state)
+{
+	// do nothing 
+}
+
+static void mode_selec_service_callback(uint16_t conn_handle, ble_os_t * p_led_service, uint8_t curtain_state)
+{
+	// do nothing
+}
 
 /**@brief Function for initializing the BLE stack.
  *
@@ -555,14 +751,17 @@ static void ble_stack_init(void)
     NRF_SDH_BLE_OBSERVER(m_ble_observer, APP_BLE_OBSERVER_PRIO, ble_evt_handler, NULL);
 
     //OUR_JOB: Step 3.C Call ble_our_service_on_ble_evt() to do housekeeping of ble connections related to our service and characteristics
-		m_our_service.curtain_write_handler = curtain_write_handler ;
-		NRF_SDH_BLE_OBSERVER(m_our_service_observer, APP_BLE_OBSERVER_PRIO, ble_our_service_on_ble_evt,(void*)&m_our_service);
-		
-	
-	
-		
+//		m_our_service.curtain_write_handler = curtain_write_handler ;
+//		NRF_SDH_BLE_OBSERVER(m_our_service_observer, APP_BLE_OBSERVER_PRIO, ble_our_service_on_ble_evt,(void*)&m_our_service);
 
-	
+		m_our_service.curtain_write_handler = curtain_write_handler ;
+		NRF_SDH_BLE_OBSERVER(m_our_service_observer, APP_BLE_OBSERVER_PRIO, ble_our_service_on_ble_evt_1,(void*)&m_our_service);
+
+		timer_service.curtain_write_handler = timer_service_callback ;
+		NRF_SDH_BLE_OBSERVER(timer_service_observer, APP_BLE_OBSERVER_PRIO, ble_our_service_on_ble_evt_2,(void*)&timer_service);
+		
+		mode_selec_service.curtain_write_handler = mode_selec_service_callback ;
+		NRF_SDH_BLE_OBSERVER(mode_select_service_observer, APP_BLE_OBSERVER_PRIO, ble_our_service_on_ble_evt_3,(void*)&mode_selec_service);		
 }
 
 
@@ -676,6 +875,9 @@ static void advertising_init(void)
     init.config.ble_adv_fast_timeout  = APP_ADV_DURATION;
 
     init.evt_handler = on_adv_evt;
+		
+	// ble+: them apperance cho application
+		sd_ble_gap_appearance_set(BLE_APPEARANCE_GENERIC_REMOTE_CONTROL);		
 
     err_code = ble_advertising_init(&m_advertising, &init);
     APP_ERROR_CHECK(err_code);
@@ -683,7 +885,7 @@ static void advertising_init(void)
     ble_advertising_conn_cfg_tag_set(&m_advertising, APP_BLE_CONN_CFG_TAG);
 }
 
-
+// Note : Ham khoi tao button va led mac dinh. 
 /**@brief Function for initializing buttons and leds.
  *
  * @param[out] p_erase_bonds  Will be true if the clear bonding button was pressed to wake the application up.
@@ -737,56 +939,136 @@ static void idle_state_handle(void)
 }
 
 
-/**@brief Function for starting advertising.
- */
-static void advertising_start(bool erase_bonds)
+/**@brief Function for starting advertising. */
+static void advertising_start(void * p_erase_bonds)
 {
-    if (erase_bonds == true)
+    bool erase_bonds = *(bool*)p_erase_bonds;
+
+    if (erase_bonds)
     {
         delete_bonds();
-        // Advertising is started by PM_EVT_PEERS_DELETED_SUCEEDED event
+        // Advertising is started by PM_EVT_PEERS_DELETE_SUCCEEDED event.
     }
     else
     {
         ret_code_t err_code = ble_advertising_start(&m_advertising, BLE_ADV_MODE_FAST);
-
         APP_ERROR_CHECK(err_code);
     }
 }
+
+// Freertos
+#if NRF_LOG_ENABLED
+/**@brief Thread for handling the logger.
+ *
+ * @details This thread is responsible for processing log entries if logs are deferred.
+ *          Thread flushes all log entries and suspends. It is resumed by idle task hook.
+ *
+ * @param[in]   arg   Pointer used for passing some arbitrary information (context) from the
+ *                    osThreadCreate() call to the thread.
+ */
+static void logger_thread(void * arg)
+{
+    UNUSED_PARAMETER(arg);
+
+    while (1)
+    {
+        NRF_LOG_FLUSH();
+
+        vTaskSuspend(NULL); // Suspend myself
+    }
+}
+#endif //NRF_LOG_ENABLED
+
+
+// Freertos
+/**@brief A function which is hooked to idle task.
+ * @note Idle hook must be enabled in FreeRTOS configuration (configUSE_IDLE_HOOK).
+ */
+void vApplicationIdleHook( void )
+{
+#if NRF_LOG_ENABLED
+     vTaskResume(m_logger_thread);
+#endif
+}
+
+// Freertos
+/**@brief Function for initializing the clock.
+ */
+static void clock_init(void)
+{
+    ret_code_t err_code = nrf_drv_clock_init();
+    APP_ERROR_CHECK(err_code);
+}
+
+
 
 /**@brief Function for application main entry.
  */
 int main(void)
 {
     bool erase_bonds;
+		// Freertos
+		xQueue = xQueueCreate(1, sizeof( uint8_t ));
 
-    // Initialize.
+    // Initialize modules.
     log_init();
+    clock_init();
+	
+		#if NRF_LOG_ENABLED
+				// Start execution.
+				if (pdPASS != xTaskCreate(logger_thread, "LOGGER", 100, NULL, 1, &m_logger_thread))
+				{
+						APP_ERROR_HANDLER(NRF_ERROR_NO_MEM);
+				}
+		#endif
+		if(pdPASS == xTaskCreate( vControlMotorTask, "Motor Task", 100, NULL, 3, NULL ))
+			{
+				NRF_LOG_INFO("Khoi tao task thanh cong");
+			}else{
+				NRF_LOG_INFO("Khoi tao task khong thanh cong");				
+			}
+				
+				
+		// Activate deep sleep mode.
+    SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+				
+    // Configure and initialize the BLE stack.
+    ble_stack_init();
+				
+    // Initialize modules.		
     timers_init();
     buttons_leds_init(&erase_bonds);
     power_management_init();
-    ble_stack_init();
     gap_params_init();
     gatt_init();
+		// delete
 		dong_co_init();
-		
+		gpio_init(); // mode 2
+//		saadc_init();
+	
 	  services_init();
 		advertising_init();
 		
-
     conn_params_init();
     peer_manager_init();
 
     // Start execution.
     NRF_LOG_INFO("OurCharacteristics tutorial started.");
+		NRF_LOG_FLUSH();
     application_timers_start();
 
-    advertising_start(erase_bonds);
+    // Create a FreeRTOS task for the BLE stack.
+    // The task will run advertising_start() before entering its loop.
+    nrf_sdh_freertos_init(advertising_start, &erase_bonds);
+		
+    NRF_LOG_INFO("Smart Curtain started.");
+    // Start FreeRTOS scheduler.
+    vTaskStartScheduler();
 
     // Enter main loop.
     for (;;)
     {
-        idle_state_handle();
+			APP_ERROR_HANDLER(NRF_ERROR_FORBIDDEN);
     }
 }
 

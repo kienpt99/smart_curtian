@@ -51,3 +51,8 @@
 .\_build\ble_conn_params.o: ..\..\..\..\..\..\components\libraries\log\nrf_log_instance.h
 .\_build\ble_conn_params.o: ..\..\..\..\..\..\components\libraries\log\nrf_log_types.h
 .\_build\ble_conn_params.o: ..\..\..\..\..\..\components\libraries\sortlist\nrf_sortlist.h
+.\_build\ble_conn_params.o: ..\..\..\..\ble_app_hrs_freertos\config\FreeRTOSConfig.h
+.\_build\ble_conn_params.o: ..\..\..\..\..\..\components\softdevice\s140\headers\nrf_soc.h
+.\_build\ble_conn_params.o: ..\..\..\..\..\..\components\softdevice\s140\headers\nrf_error_soc.h
+.\_build\ble_conn_params.o: ..\..\..\..\..\..\components\libraries\util\app_util_platform.h
+.\_build\ble_conn_params.o: ..\..\..\..\..\..\components\softdevice\s140\headers\nrf_nvic.h

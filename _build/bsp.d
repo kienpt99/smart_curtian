@@ -55,3 +55,4 @@
 .\_build\bsp.o: ..\..\..\..\..\..\components\libraries\experimental_section_vars\nrf_section.h
 .\_build\bsp.o: ..\..\..\..\..\..\components\libraries\log\nrf_log_types.h
 .\_build\bsp.o: ..\..\..\..\..\..\components\libraries\sortlist\nrf_sortlist.h
+.\_build\bsp.o: ..\..\..\..\ble_app_hrs_freertos\config\FreeRTOSConfig.h

@@ -55,6 +55,7 @@
 .\_build\app_button.o: ..\..\..\..\..\..\components\libraries\experimental_section_vars\nrf_section.h
 .\_build\app_button.o: ..\..\..\..\..\..\components\libraries\log\nrf_log_types.h
 .\_build\app_button.o: ..\..\..\..\..\..\components\libraries\sortlist\nrf_sortlist.h
+.\_build\app_button.o: ..\..\..\..\ble_app_hrs_freertos\config\FreeRTOSConfig.h
 .\_build\app_button.o: ..\..\..\..\..\..\integration\nrfx\legacy\nrf_drv_gpiote.h
 .\_build\app_button.o: ..\..\..\..\..\..\modules\nrfx\drivers\include\nrfx_gpiote.h
 .\_build\app_button.o: ..\..\..\..\..\..\modules\nrfx\hal/nrf_gpiote.h
