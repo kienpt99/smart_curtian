@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\_build\nrf52840_xxaa.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\_build\nrf52840_xxaa.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue Jan 19 21:50:04 2021
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed Jan 20 09:47:28 2021
 <BR><P>
 <H3>Maximum Stack Usage =        676 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -456,18 +456,18 @@ Global Symbols
 <LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;local_db_update_in_evt
 <LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conn_handle_list_get
 <LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_evt_handler
-<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_ble_gatt_on_ble_evt
-<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_params_init
-<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_advertising_init
-<LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;peer_data_delete_process
-<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;im_ble_evt_handler
-<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_ble_evt_handler
 <LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;new_evt
 <LI><a href="#[295]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;smd_ble_evt_handler
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_unexpected_error
 <LI><a href="#[290]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_proc_start
 <LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conn_sec_failure
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;auth_status_success_process
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_ble_gatt_on_ble_evt
+<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_params_init
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_advertising_init
+<LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;peer_data_delete_process
+<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;im_ble_evt_handler
+<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_ble_evt_handler
 <LI><a href="#[1dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_uart_init
 <LI><a href="#[1f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_init
 </UL>
@@ -493,6 +493,10 @@ Global Symbols
 
 <P><STRONG><a name="[ad]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\mc_w.l(memseta.o)(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;local_db_apply_in_evt
+<LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;new_evt
+<LI><a href="#[299]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;smd_params_reply
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_config_req
+<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_pdb_evt_handler
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_peers_delete
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_advertising_start
 <LI><a href="#[38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -501,10 +505,6 @@ Global Symbols
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fds_evt_handler
 <LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ah
 <LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;service_changed_pending_set
-<LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;new_evt
-<LI><a href="#[299]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;smd_params_reply
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_config_req
-<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_pdb_evt_handler
 <LI><a href="#[16f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;queue_process
 <LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;queue_buf_get
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write
@@ -864,9 +864,9 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[17e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_pending_flags_check
 <LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;service_changed_pending_flags_check
-<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_ble_evt_handler
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sm_ble_evt_handler
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sm_pdb_evt_handler
+<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_ble_evt_handler
 </UL>
 
 <P><STRONG><a name="[f6]"></a>ble_conn_state_lesc</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, .\_build\ble_conn_state.o(i.ble_conn_state_lesc))
@@ -893,10 +893,10 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_atflags_get
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_valid
 </UL>
-<BR>[Called By]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_evt_handler
-<LI><a href="#[299]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;smd_params_reply
+<BR>[Called By]<UL><LI><a href="#[299]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;smd_params_reply
 <LI><a href="#[19f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;smd_link_secure
 <LI><a href="#[295]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;smd_ble_evt_handler
+<LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_evt_handler
 </UL>
 
 <P><STRONG><a name="[f9]"></a>ble_conn_state_status</STRONG> (Thumb, 32 bytes, Stack size 16 bytes, .\_build\ble_conn_state.o(i.ble_conn_state_status))
@@ -913,9 +913,9 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_atflags_find_and_set_flag
 </UL>
-<BR>[Called By]<UL><LI><a href="#[182]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_init
-<LI><a href="#[16d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flag_id_init
+<BR>[Called By]<UL><LI><a href="#[16d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flag_id_init
 <LI><a href="#[16c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flag_id_init
+<LI><a href="#[182]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_init
 </UL>
 
 <P><STRONG><a name="[b0]"></a>ble_conn_state_user_flag_get</STRONG> (Thumb, 44 bytes, Stack size 16 bytes, .\_build\ble_conn_state.o(i.ble_conn_state_user_flag_get))
@@ -926,12 +926,12 @@ Global Symbols
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;user_flag_is_acquired
 </UL>
 <BR>[Called By]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sc_send_pending_handle
-<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_ble_evt_handler
 <LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;link_secure_pending_handle
 <LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pairing_failure
 <LI><a href="#[1a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pairing
 <LI><a href="#[1a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;link_secure_failure
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;allow_repairing
+<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_ble_evt_handler
 </UL>
 
 <P><STRONG><a name="[cf]"></a>ble_conn_state_user_flag_set</STRONG> (Thumb, 50 bytes, Stack size 16 bytes, .\_build\ble_conn_state.o(i.ble_conn_state_user_flag_set))
@@ -946,10 +946,6 @@ Global Symbols
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;local_db_apply_in_evt
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;car_update_pending_handle
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;car_update_needed
-<LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;store_car_value
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_pdb_evt_handler
-<LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_im_evt_handler
-<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_ble_evt_handler
 <LI><a href="#[19c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;link_secure
 <LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flags_set_from_err_code
 <LI><a href="#[299]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;smd_params_reply
@@ -958,6 +954,10 @@ Global Symbols
 <LI><a href="#[290]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_proc_start
 <LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conn_sec_failure
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;auth_status_success_process
+<LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;store_car_value
+<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_pdb_evt_handler
+<LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_im_evt_handler
+<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_ble_evt_handler
 </UL>
 
 <P><STRONG><a name="[f1]"></a>ble_conn_state_valid</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, .\_build\ble_conn_state.o(i.ble_conn_state_valid))
@@ -1533,10 +1533,10 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_valid
 </UL>
-<BR>[Called By]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;im_peer_free
+<BR>[Called By]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_pdb_evt_handler
+<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;im_peer_free
 <LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;evt_send
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_pdb_evt_handler
-<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_pdb_evt_handler
 </UL>
 
 <P><STRONG><a name="[d4]"></a>im_find_duplicate_bonding_data</STRONG> (Thumb, 56 bytes, Stack size 24 bytes, .\_build\id_manager.o(i.im_find_duplicate_bonding_data))
@@ -1569,8 +1569,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;im_master_id_is_valid
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memcmp
 </UL>
-<BR>[Called By]<UL><LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;im_peer_id_get_by_master_id
-<LI><a href="#[28f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_info_request_process
+<BR>[Called By]<UL><LI><a href="#[28f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_info_request_process
+<LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;im_peer_id_get_by_master_id
 </UL>
 
 <P><STRONG><a name="[d5]"></a>im_new_peer_id</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, .\_build\id_manager.o(i.im_new_peer_id))
@@ -1596,17 +1596,17 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[28e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;service_changed_send_in_evt
 <LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;evt_send
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;car_update_needed
-<LI><a href="#[181]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_service_changed_ind_needed
-<LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_local_db_cache_update
-<LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_local_db_cache_apply
-<LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;store_car_value
-<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_ble_evt_handler
 <LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;new_evt
 <LI><a href="#[299]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;smd_params_reply
 <LI><a href="#[28f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_info_request_process
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;evt_send
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;auth_status_success_process
 <LI><a href="#[297]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sm_conn_sec_status_get
+<LI><a href="#[181]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_service_changed_ind_needed
+<LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_local_db_cache_update
+<LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_local_db_cache_apply
+<LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;store_car_value
+<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_ble_evt_handler
 </UL>
 
 <P><STRONG><a name="[195]"></a>im_peer_id_get_by_master_id</STRONG> (Thumb, 60 bytes, Stack size 24 bytes, .\_build\id_manager.o(i.im_peer_id_get_by_master_id))
@@ -1763,11 +1763,11 @@ Global Symbols
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_encrypted
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;user_flag_is_acquired
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;for_each_set_flag
+<LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mutex_lock_status_get
+<LI><a href="#[1bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;next_id_get
 <LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_role
 <LI><a href="#[24c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;peer_id_is_deleted
 <LI><a href="#[24a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;peer_id_is_allocated
-<LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mutex_lock_status_get
-<LI><a href="#[1bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;next_id_get
 </UL>
 
 <P><STRONG><a name="[107]"></a>nrf_atflags_set</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, .\_build\nrf_atflags.o(i.nrf_atflags_set))
@@ -2133,7 +2133,11 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[200]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std_n
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_freertos_init
+<BR>[Called By]<UL><LI><a href="#[28f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_info_request_process
+<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;auth_status_success_process
+<LI><a href="#[255]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;smd_init
+<LI><a href="#[254]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sm_init
+<LI><a href="#[1b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_freertos_init
 <LI><a href="#[1af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_ble_enable
 <LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_dequeue
 <LI><a href="#[38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -2145,10 +2149,6 @@ Global Symbols
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_evt_handler
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;advertising_start
 <LI><a href="#[182]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_init
-<LI><a href="#[28f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_info_request_process
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;auth_status_success_process
-<LI><a href="#[255]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;smd_init
-<LI><a href="#[254]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sm_init
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_error_fault_handler
 <LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rtc_init
 <LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;da_ghi
@@ -2161,6 +2161,10 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;local_db_update_in_evt
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;local_db_apply_in_evt
+<LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;events_send_from_err_code
+<LI><a href="#[291]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_keyset_fill
+<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buf_store
+<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_init
 <LI><a href="#[1af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_ble_enable
 <LI><a href="#[1ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_ble_default_cfg_set
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_ble_gatt_on_ble_evt
@@ -2174,10 +2178,6 @@ Global Symbols
 <LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_local_db_cache_apply
 <LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;store_car_value
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_ble_evt_handler
-<LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;events_send_from_err_code
-<LI><a href="#[291]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_keyset_fill
-<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buf_store
-<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_init
 </UL>
 
 <P><STRONG><a name="[d2]"></a>nrf_log_frontend_std_2</STRONG> (Thumb, 16 bytes, Stack size 16 bytes, .\_build\nrf_log_frontend.o(i.nrf_log_frontend_std_2))
@@ -2188,6 +2188,13 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[28e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;service_changed_send_in_evt
 <LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;local_db_update_in_evt
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;local_db_apply_in_evt
+<LI><a href="#[19c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;link_secure
+<LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;events_send_from_err_code
+<LI><a href="#[291]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_keyset_fill
+<LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pairing_failure
+<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;auth_status_success_process
+<LI><a href="#[259]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_peer_ranks_get
+<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buf_store
 <LI><a href="#[24d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_init
 <LI><a href="#[1af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_ble_enable
 <LI><a href="#[236]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reattempt_previous_operations
@@ -2197,13 +2204,6 @@ Global Symbols
 <LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;service_changed_pending_set
 <LI><a href="#[186]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pds_peer_data_store
 <LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_local_db_cache_update
-<LI><a href="#[19c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;link_secure
-<LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;events_send_from_err_code
-<LI><a href="#[291]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_keyset_fill
-<LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pairing_failure
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;auth_status_success_process
-<LI><a href="#[259]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_peer_ranks_get
-<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buf_store
 </UL>
 
 <P><STRONG><a name="[da]"></a>nrf_log_frontend_std_3</STRONG> (Thumb, 18 bytes, Stack size 24 bytes, .\_build\nrf_log_frontend.o(i.nrf_log_frontend_std_3))
@@ -2211,11 +2211,11 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[200]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std_n
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_peers_delete
+<BR>[Called By]<UL><LI><a href="#[28f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_info_request_process
+<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;auth_status_success_process
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_peers_delete
 <LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_evt_handler
 <LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_peer_free
-<LI><a href="#[28f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_info_request_process
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;auth_status_success_process
 <LI><a href="#[179]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_fstorage_write
 <LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_fstorage_init
 <LI><a href="#[178]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_fstorage_erase
@@ -2481,6 +2481,15 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[28e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;service_changed_send_in_evt
 <LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;local_db_update_in_evt
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;local_db_apply_in_evt
+<LI><a href="#[19c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;link_secure
+<LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;events_send_from_err_code
+<LI><a href="#[291]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_keyset_fill
+<LI><a href="#[28f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_info_request_process
+<LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pairing_failure
+<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;auth_status_success_process
+<LI><a href="#[259]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_peer_ranks_get
+<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buf_store
+<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_init
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_peers_delete
 <LI><a href="#[24d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_init
 <LI><a href="#[1af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_sdh_ble_enable
@@ -2495,15 +2504,6 @@ Global Symbols
 <LI><a href="#[18b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_service_changed_ind_send
 <LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_local_db_cache_update
 <LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;store_car_value
-<LI><a href="#[19c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;link_secure
-<LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;events_send_from_err_code
-<LI><a href="#[291]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_keyset_fill
-<LI><a href="#[28f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_info_request_process
-<LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pairing_failure
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;auth_status_success_process
-<LI><a href="#[259]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_peer_ranks_get
-<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buf_store
-<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_init
 </UL>
 
 <P><STRONG><a name="[1d5]"></a>nrfx_clock_enable</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, .\_build\nrfx_clock.o(i.nrfx_clock_enable))
@@ -2718,10 +2718,10 @@ Global Symbols
 <P><STRONG><a name="[231]"></a>pdb_init</STRONG> (Thumb, 90 bytes, Stack size 24 bytes, .\_build\peer_database.o(i.pdb_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 236<LI>Call Chain = pdb_init &rArr; nrf_log_frontend_std_1 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr;  nrf_log_frontend_std_0 (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_1
+<BR>[Calls]<UL><LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_buffer_init
+<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_1
 <LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buffer_record_invalidate
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_strerror_get
-<LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_buffer_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[24d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_init
 </UL>
@@ -2740,11 +2740,11 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pds_peer_data_read
 </UL>
-<BR>[Called By]<UL><LI><a href="#[181]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_service_changed_ind_needed
+<BR>[Called By]<UL><LI><a href="#[28f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_info_request_process
+<LI><a href="#[297]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sm_conn_sec_status_get
+<LI><a href="#[181]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_service_changed_ind_needed
 <LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_local_db_cache_apply
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_pdb_evt_handler
-<LI><a href="#[28f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_info_request_process
-<LI><a href="#[297]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sm_conn_sec_status_get
 </UL>
 
 <P><STRONG><a name="[194]"></a>pdb_peer_free</STRONG> (Thumb, 124 bytes, Stack size 24 bytes, .\_build\peer_database.o(i.pdb_peer_free))
@@ -2763,16 +2763,16 @@ Global Symbols
 <P><STRONG><a name="[d0]"></a>pdb_write_buf_get</STRONG> (Thumb, 204 bytes, Stack size 32 bytes, .\_build\peer_database.o(i.pdb_write_buf_get))
 <BR><BR>[Stack]<UL><LI>Max Depth = 244<LI>Call Chain = pdb_write_buf_get &rArr; nrf_log_frontend_std_1 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr;  nrf_log_frontend_std_0 (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_1
+<BR>[Calls]<UL><LI><a href="#[23b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_buffer_ptr_get
+<LI><a href="#[23a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_buffer_block_acquire
+<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_1
 <LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buffer_record_invalidate
 <LI><a href="#[239]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buffer_record_find
 <LI><a href="#[23c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;peer_data_point_to_buffer
-<LI><a href="#[23b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_buffer_ptr_get
-<LI><a href="#[23a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_buffer_block_acquire
 </UL>
-<BR>[Called By]<UL><LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_local_db_cache_update
-<LI><a href="#[291]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_keyset_fill
+<BR>[Called By]<UL><LI><a href="#[291]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_keyset_fill
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;auth_status_success_process
+<LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_local_db_cache_update
 </UL>
 
 <P><STRONG><a name="[189]"></a>pdb_write_buf_release</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, .\_build\peer_database.o(i.pdb_write_buf_release))
@@ -2781,20 +2781,20 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[234]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buffer_record_release
 <LI><a href="#[239]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buffer_record_find
 </UL>
-<BR>[Called By]<UL><LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_peer_free
+<BR>[Called By]<UL><LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pairing_failure
+<LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_peer_free
 <LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_local_db_cache_update
-<LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pairing_failure
 </UL>
 
 <P><STRONG><a name="[d9]"></a>pdb_write_buf_store</STRONG> (Thumb, 54 bytes, Stack size 16 bytes, .\_build\peer_database.o(i.pdb_write_buf_store))
 <BR><BR>[Stack]<UL><LI>Max Depth = 500<LI>Call Chain = pdb_write_buf_store &rArr; write_buf_store &rArr; pds_peer_data_store &rArr; fds_record_write &rArr; write_enqueue &rArr; queue_start &rArr; queue_process &rArr; gc_execute &rArr; gc_next_page &rArr; gc_record_find_next &rArr; gc_record_copy &rArr; nrf_fstorage_write &rArr; nrf_log_frontend_std_3 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr;  nrf_log_frontend_std_0 (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[239]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buffer_record_find
+<BR>[Calls]<UL><LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buf_store
+<LI><a href="#[239]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buffer_record_find
 <LI><a href="#[23d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pds_peer_id_is_allocated
-<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buf_store
 </UL>
-<BR>[Called By]<UL><LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_local_db_cache_update
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;auth_status_success_process
+<BR>[Called By]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;auth_status_success_process
+<LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_local_db_cache_update
 </UL>
 
 <P><STRONG><a name="[23f]"></a>pds_init</STRONG> (Thumb, 136 bytes, Stack size 48 bytes, .\_build\peer_data_storage.o(i.pds_init))
@@ -2825,10 +2825,10 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[245]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;peer_id_get_next_used
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_peers_delete
-<LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;service_changed_pending_set
-<LI><a href="#[259]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_peer_ranks_get
+<BR>[Called By]<UL><LI><a href="#[259]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_peer_ranks_get
 <LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_pdb_evt_handler
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_peers_delete
+<LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;service_changed_pending_set
 </UL>
 
 <P><STRONG><a name="[18f]"></a>pds_peer_data_iterate</STRONG> (Thumb, 84 bytes, Stack size 40 bytes, .\_build\peer_data_storage.o(i.pds_peer_data_iterate))
@@ -2860,8 +2860,8 @@ Global Symbols
 <LI><a href="#[1b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;car_update_needed
-<LI><a href="#[183]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_peer_data_ptr_get
 <LI><a href="#[259]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_peer_ranks_get
+<LI><a href="#[183]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_peer_data_ptr_get
 </UL>
 
 <P><STRONG><a name="[186]"></a>pds_peer_data_store</STRONG> (Thumb, 168 bytes, Stack size 40 bytes, .\_build\peer_data_storage.o(i.pds_peer_data_store))
@@ -2874,10 +2874,10 @@ Global Symbols
 <LI><a href="#[247]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;peer_data_find
 <LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_2
 </UL>
-<BR>[Called By]<UL><LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;service_changed_pending_set
+<BR>[Called By]<UL><LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buf_store
+<LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;service_changed_pending_set
 <LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_db_change_notification_done
 <LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;store_car_value
-<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buf_store
 </UL>
 
 <P><STRONG><a name="[d7]"></a>pds_peer_id_allocate</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, .\_build\peer_data_storage.o(i.pds_peer_id_allocate))
@@ -2941,8 +2941,8 @@ Global Symbols
 <P><STRONG><a name="[245]"></a>peer_id_get_next_used</STRONG> (Thumb, 42 bytes, Stack size 16 bytes, .\_build\peer_id.o(i.peer_id_get_next_used))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = peer_id_get_next_used &rArr; next_id_get
 </UL>
-<BR>[Calls]<UL><LI><a href="#[24c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;peer_id_is_deleted
-<LI><a href="#[1bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;next_id_get
+<BR>[Calls]<UL><LI><a href="#[1bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;next_id_get
+<LI><a href="#[24c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;peer_id_is_deleted
 </UL>
 <BR>[Called By]<UL><LI><a href="#[244]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pds_next_peer_id_get
 </UL>
@@ -2985,8 +2985,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mutex_lock_status_get
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_write_buf_get
-<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buf_store
+<BR>[Called By]<UL><LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buf_store
+<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_write_buf_get
 </UL>
 
 <P><STRONG><a name="[250]"></a>pm_buffer_release</STRONG> (Thumb, 50 bytes, Stack size 16 bytes, .\_build\pm_buffer.o(i.pm_buffer_release))
@@ -2995,8 +2995,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_atflags_clear
 <LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mutex_lock_status_get
 </UL>
-<BR>[Called By]<UL><LI><a href="#[234]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buffer_record_release
-<LI><a href="#[23a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_buffer_block_acquire
+<BR>[Called By]<UL><LI><a href="#[23a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_buffer_block_acquire
+<LI><a href="#[234]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buffer_record_release
 </UL>
 
 <P><STRONG><a name="[251]"></a>pm_conn_sec_config_reply</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, .\_build\peer_manager.o(i.pm_conn_sec_config_reply))
@@ -3031,14 +3031,14 @@ Global Symbols
 <P><STRONG><a name="[24d]"></a>pm_init</STRONG> (Thumb, 162 bytes, Stack size 16 bytes, .\_build\peer_manager.o(i.pm_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 484<LI>Call Chain = pm_init &rArr; pds_init &rArr; fds_init &rArr; queue_start &rArr; queue_process &rArr; gc_execute &rArr; gc_next_page &rArr; gc_record_find_next &rArr; gc_record_copy &rArr; nrf_fstorage_write &rArr; nrf_log_frontend_std_3 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr;  nrf_log_frontend_std_0 (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pds_init
+<BR>[Calls]<UL><LI><a href="#[255]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;smd_init
+<LI><a href="#[254]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sm_init
+<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_init
+<LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pds_init
 <LI><a href="#[256]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gscm_init
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_strerror_get
 <LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_2
 <LI><a href="#[182]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_init
-<LI><a href="#[255]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;smd_init
-<LI><a href="#[254]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sm_init
-<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;peer_manager_init
 </UL>
@@ -3046,11 +3046,11 @@ Global Symbols
 <P><STRONG><a name="[66]"></a>pm_pdb_evt_handler</STRONG> (Thumb, 276 bytes, Stack size 48 bytes, .\_build\peer_manager.o(i.pm_pdb_evt_handler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 348<LI>Call Chain = pm_pdb_evt_handler &rArr; rank_vars_update &rArr; pm_peer_ranks_get &rArr; nrf_log_frontend_std_2 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr;  nrf_log_frontend_std_0 (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[242]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pds_next_deleted_peer_id_get
+<BR>[Calls]<UL><LI><a href="#[257]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rank_vars_update
+<LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;evt_send
+<LI><a href="#[242]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pds_next_deleted_peer_id_get
 <LI><a href="#[244]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pds_next_peer_id_get
 <LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;im_conn_handle_get
-<LI><a href="#[257]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rank_vars_update
-<LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;evt_send
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> peer_database.o(.constdata)
@@ -3077,11 +3077,11 @@ Global Symbols
 <P><STRONG><a name="[a9]"></a>pm_peers_delete</STRONG> (Thumb, 126 bytes, Stack size 40 bytes, .\_build\peer_manager.o(i.pm_peers_delete))
 <BR><BR>[Stack]<UL><LI>Max Depth = 548<LI>Call Chain = pm_peers_delete &rArr; pm_peer_delete &rArr; im_peer_free &rArr; pdb_peer_free &rArr; pds_peer_id_free &rArr; peer_data_delete_process &rArr; fds_file_delete &rArr; queue_start &rArr; queue_process &rArr; gc_execute &rArr; gc_next_page &rArr; gc_record_find_next &rArr; gc_record_copy &rArr; nrf_fstorage_write &rArr; nrf_log_frontend_std_3 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr;  nrf_log_frontend_std_0 (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_3
+<BR>[Calls]<UL><LI><a href="#[258]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_peer_delete
+<LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;evt_send
+<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_3
 <LI><a href="#[244]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pds_next_peer_id_get
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_strerror_get
-<LI><a href="#[258]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_peer_delete
-<LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;evt_send
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;advertising_start
@@ -3156,8 +3156,8 @@ Global Symbols
 <P><STRONG><a name="[254]"></a>sm_init</STRONG> (Thumb, 72 bytes, Stack size 8 bytes, .\_build\security_manager.o(i.sm_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 212<LI>Call Chain = sm_init &rArr; nrf_log_frontend_std_0 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr;  nrf_log_frontend_std_0 (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_0
-<LI><a href="#[16d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flag_id_init
+<BR>[Calls]<UL><LI><a href="#[16d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flag_id_init
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_0
 </UL>
 <BR>[Called By]<UL><LI><a href="#[24d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_init
 </UL>
@@ -3199,7 +3199,6 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_user_flag_set
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_encrypted
-<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_role
 <LI><a href="#[290]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_proc_start
 <LI><a href="#[28f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_info_request_process
 <LI><a href="#[1a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pairing
@@ -3207,6 +3206,7 @@ Global Symbols
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;evt_send
 <LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;encryption_failure
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;auth_status_success_process
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_role
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sm_ble_evt_handler
@@ -3223,8 +3223,8 @@ Global Symbols
 <P><STRONG><a name="[255]"></a>smd_init</STRONG> (Thumb, 88 bytes, Stack size 8 bytes, .\_build\security_dispatcher.o(i.smd_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 212<LI>Call Chain = smd_init &rArr; nrf_log_frontend_std_0 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr;  nrf_log_frontend_std_0 (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_0
-<LI><a href="#[16c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flag_id_init
+<BR>[Calls]<UL><LI><a href="#[16c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flag_id_init
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_0
 </UL>
 <BR>[Called By]<UL><LI><a href="#[24d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_init
 </UL>
@@ -3241,11 +3241,11 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 340<LI>Call Chain = smd_params_reply &rArr; sec_keyset_fill &rArr; pdb_write_buf_get &rArr; nrf_log_frontend_std_1 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr;  nrf_log_frontend_std_0 (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_user_flag_set
-<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_role
-<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;im_peer_id_get_by_conn_handle
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_config_req
 <LI><a href="#[291]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_keyset_fill
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;allow_repairing
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_role
+<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;im_peer_id_get_by_conn_handle
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;smd_params_reply_perform
@@ -3500,12 +3500,12 @@ Global Symbols
 <P><STRONG><a name="[23e]"></a>write_buf_store</STRONG> (Thumb, 202 bytes, Stack size 32 bytes, .\_build\peer_database.o(i.write_buf_store))
 <BR><BR>[Stack]<UL><LI>Max Depth = 484<LI>Call Chain = write_buf_store &rArr; pds_peer_data_store &rArr; fds_record_write &rArr; write_enqueue &rArr; queue_start &rArr; queue_process &rArr; gc_execute &rArr; gc_next_page &rArr; gc_record_find_next &rArr; gc_record_copy &rArr; nrf_fstorage_write &rArr; nrf_log_frontend_std_3 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr;  nrf_log_frontend_std_0 (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_1
+<BR>[Calls]<UL><LI><a href="#[23b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_buffer_ptr_get
+<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_1
 <LI><a href="#[23c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;peer_data_point_to_buffer
 <LI><a href="#[186]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pds_peer_data_store
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_strerror_get
 <LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_2
-<LI><a href="#[23b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_buffer_ptr_get
 </UL>
 <BR>[Called By]<UL><LI><a href="#[236]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reattempt_previous_operations
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_write_buf_store
@@ -4445,17 +4445,17 @@ Local Symbols
 <P><STRONG><a name="[23c]"></a>peer_data_point_to_buffer</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, .\_build\peer_database.o(i.peer_data_point_to_buffer))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = peer_data_point_to_buffer
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_write_buf_get
-<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buf_store
+<BR>[Called By]<UL><LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buf_store
+<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_write_buf_get
 </UL>
 
 <P><STRONG><a name="[236]"></a>reattempt_previous_operations</STRONG> (Thumb, 148 bytes, Stack size 48 bytes, .\_build\peer_database.o(i.reattempt_previous_operations))
 <BR><BR>[Stack]<UL><LI>Max Depth = 532<LI>Call Chain = reattempt_previous_operations &rArr; write_buf_store &rArr; pds_peer_data_store &rArr; fds_record_write &rArr; write_enqueue &rArr; queue_start &rArr; queue_process &rArr; gc_execute &rArr; gc_next_page &rArr; gc_record_find_next &rArr; gc_record_copy &rArr; nrf_fstorage_write &rArr; nrf_log_frontend_std_3 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr;  nrf_log_frontend_std_0 (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[235]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_evt_send
+<BR>[Calls]<UL><LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buf_store
+<LI><a href="#[235]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_evt_send
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_strerror_get
 <LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_2
-<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buf_store
 </UL>
 <BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_pds_evt_handler
 </UL>
@@ -4478,16 +4478,16 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[232]"></a>write_buffer_record_invalidate</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, .\_build\peer_database.o(i.write_buffer_record_invalidate))
-<BR><BR>[Called By]<UL><LI><a href="#[234]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buffer_record_release
+<BR><BR>[Called By]<UL><LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_init
+<LI><a href="#[234]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buffer_record_release
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_write_buf_get
-<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_init
 </UL>
 
 <P><STRONG><a name="[234]"></a>write_buffer_record_release</STRONG> (Thumb, 38 bytes, Stack size 16 bytes, .\_build\peer_database.o(i.write_buffer_record_release))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = write_buffer_record_release &rArr; pm_buffer_release &rArr; nrf_atflags_clear &rArr; nrf_atomic_u32_and
 </UL>
-<BR>[Calls]<UL><LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buffer_record_invalidate
-<LI><a href="#[250]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_buffer_release
+<BR>[Calls]<UL><LI><a href="#[250]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_buffer_release
+<LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_buffer_record_invalidate
 </UL>
 <BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_pds_evt_handler
 <LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_write_buf_release
@@ -4514,21 +4514,21 @@ Local Symbols
 <P><STRONG><a name="[7f]"></a>ble_evt_handler</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, .\_build\peer_manager.o(i.ble_evt_handler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 628<LI>Call Chain = ble_evt_handler &rArr; sm_ble_evt_handler &rArr; smd_ble_evt_handler &rArr; auth_status_success_process &rArr; im_peer_free &rArr; pdb_peer_free &rArr; pds_peer_id_free &rArr; peer_data_delete_process &rArr; fds_file_delete &rArr; queue_start &rArr; queue_process &rArr; gc_execute &rArr; gc_next_page &rArr; gc_record_find_next &rArr; gc_record_copy &rArr; nrf_fstorage_write &rArr; nrf_log_frontend_std_3 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr;  nrf_log_frontend_std_0 (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;im_ble_evt_handler
+<BR>[Calls]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sm_ble_evt_handler
+<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;im_ble_evt_handler
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gcm_ble_evt_handler
-<LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sm_ble_evt_handler
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> peer_manager.o(sdh_ble_observers1)
 </UL>
 <P><STRONG><a name="[253]"></a>evt_send</STRONG> (Thumb, 36 bytes, Stack size 24 bytes, .\_build\peer_manager.o(i.evt_send))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = evt_send
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_peers_delete
+<BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_sm_evt_handler
+<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_pdb_evt_handler
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_peers_delete
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_im_evt_handler
 <LI><a href="#[1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_gscm_evt_handler
 <LI><a href="#[0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_gcm_evt_handler
-<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_sm_evt_handler
-<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pm_pdb_evt_handler
 </UL>
 
 <P><STRONG><a name="[257]"></a>rank_vars_update</STRONG> (Thumb, 46 bytes, Stack size 8 bytes, .\_build\peer_manager.o(i.rank_vars_update))
@@ -4559,6 +4559,11 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 580<LI>Call Chain = auth_status_success_process &rArr; im_peer_free &rArr; pdb_peer_free &rArr; pds_peer_id_free &rArr; peer_data_delete_process &rArr; fds_file_delete &rArr; queue_start &rArr; queue_process &rArr; gc_execute &rArr; gc_next_page &rArr; gc_record_find_next &rArr; gc_record_copy &rArr; nrf_fstorage_write &rArr; nrf_log_frontend_std_3 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr;  nrf_log_frontend_std_0 (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_user_flag_set
+<LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_unexpected_error
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_config_req
+<LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pairing_success_evt_send
+<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;evt_send
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;allow_repairing
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_3
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_0
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pds_peer_id_allocate
@@ -4570,11 +4575,6 @@ Local Symbols
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_strerror_get
 <LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_2
 <LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;im_peer_id_get_by_conn_handle
-<LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_unexpected_error
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_config_req
-<LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pairing_success_evt_send
-<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;evt_send
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;allow_repairing
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[295]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;smd_ble_evt_handler
@@ -4647,11 +4647,11 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 244<LI>Call Chain = pairing_failure &rArr; nrf_log_frontend_std_2 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr;  nrf_log_frontend_std_0 (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_user_flag_get
+<LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_unexpected_error
+<LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conn_sec_failure
 <LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_write_buf_release
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_strerror_get
 <LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_2
-<LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_unexpected_error
-<LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;conn_sec_failure
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;link_secure_failure
 </UL>
@@ -4667,7 +4667,10 @@ Local Symbols
 <P><STRONG><a name="[28f]"></a>sec_info_request_process</STRONG> (Thumb, 198 bytes, Stack size 40 bytes, .\_build\security_dispatcher.o(i.sec_info_request_process))
 <BR><BR>[Stack]<UL><LI>Max Depth = 268<LI>Call Chain = sec_info_request_process &rArr; nrf_log_frontend_std_3 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr;  nrf_log_frontend_std_0 (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_3
+<BR>[Calls]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_unexpected_error
+<LI><a href="#[290]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_proc_start
+<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;encryption_failure
+<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_3
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_0
 <LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;im_peer_id_get_by_master_id
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;im_new_peer_id
@@ -4675,9 +4678,6 @@ Local Symbols
 <LI><a href="#[183]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pdb_peer_data_ptr_get
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_strerror_get
 <LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;im_peer_id_get_by_conn_handle
-<LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_unexpected_error
-<LI><a href="#[290]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_proc_start
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;encryption_failure
 </UL>
 <BR>[Called By]<UL><LI><a href="#[295]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;smd_ble_evt_handler
 </UL>
@@ -4730,11 +4730,11 @@ Local Symbols
 <P><STRONG><a name="[14c]"></a>events_send_from_err_code</STRONG> (Thumb, 134 bytes, Stack size 40 bytes, .\_build\security_manager.o(i.events_send_from_err_code))
 <BR><BR>[Stack]<UL><LI>Max Depth = 260<LI>Call Chain = events_send_from_err_code &rArr; nrf_log_frontend_std_2 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr;  nrf_log_frontend_std_0 (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_1
+<BR>[Calls]<UL><LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;new_evt
+<LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;evt_send
+<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_1
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_strerror_get
 <LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_2
-<LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;new_evt
-<LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;evt_send
 </UL>
 <BR>[Called By]<UL><LI><a href="#[230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;smd_params_reply_perform
 <LI><a href="#[19c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;link_secure
@@ -4767,13 +4767,13 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 308<LI>Call Chain = link_secure &rArr; events_send_from_err_code &rArr; nrf_log_frontend_std_2 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr;  nrf_log_frontend_std_0 (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_conn_state_user_flag_set
-<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_strerror_get
-<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_2
 <LI><a href="#[19e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;params_req_send
 <LI><a href="#[19d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;new_context_get
 <LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flags_set_from_err_code
 <LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;events_send_from_err_code
 <LI><a href="#[19f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;smd_link_secure
+<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_strerror_get
+<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_2
 </UL>
 <BR>[Called By]<UL><LI><a href="#[292]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sec_req_process
 <LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;link_secure_pending_handle
@@ -6074,7 +6074,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_our_service_on_ble_evt_1
 </UL>
 
-<P><STRONG><a name="[22a]"></a>our_char_add</STRONG> (Thumb, 166 bytes, Stack size 96 bytes, .\_build\our_service.o(i.our_char_add))
+<P><STRONG><a name="[22a]"></a>our_char_add</STRONG> (Thumb, 160 bytes, Stack size 96 bytes, .\_build\our_service.o(i.our_char_add))
 <BR><BR>[Stack]<UL><LI>Max Depth = 316<LI>Call Chain = our_char_add &rArr; app_error_handler_bare &rArr; app_error_fault_handler &rArr; nrf_log_frontend_std_0 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr;  nrf_log_frontend_std_0 (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_error_handler_bare

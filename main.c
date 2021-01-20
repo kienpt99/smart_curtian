@@ -751,9 +751,7 @@ static void ble_stack_init(void)
     NRF_SDH_BLE_OBSERVER(m_ble_observer, APP_BLE_OBSERVER_PRIO, ble_evt_handler, NULL);
 
     //OUR_JOB: Step 3.C Call ble_our_service_on_ble_evt() to do housekeeping of ble connections related to our service and characteristics
-//		m_our_service.curtain_write_handler = curtain_write_handler ;
-//		NRF_SDH_BLE_OBSERVER(m_our_service_observer, APP_BLE_OBSERVER_PRIO, ble_our_service_on_ble_evt,(void*)&m_our_service);
-
+	
 		m_our_service.curtain_write_handler = curtain_write_handler ;
 		NRF_SDH_BLE_OBSERVER(m_our_service_observer, APP_BLE_OBSERVER_PRIO, ble_our_service_on_ble_evt_1,(void*)&m_our_service);
 
