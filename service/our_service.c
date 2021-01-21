@@ -15,38 +15,13 @@
 static void da_ghi(ble_os_t * p_our_service, ble_evt_t const * p_ble_evt)
 {
     ble_gatts_evt_write_t const * p_evt_write = &p_ble_evt->evt.gatts_evt.params.write;
-		NRF_LOG_INFO("Da vao ham da ghi");
     if (   (p_evt_write->handle == p_our_service->char_handles.value_handle)
         && (p_evt_write->len == 1)
         && (p_our_service->curtain_write_handler != NULL))
     {
-				NRF_LOG_INFO("Da vao trong cau lenh if");
         p_our_service->curtain_write_handler(p_ble_evt->evt.gap_evt.conn_handle, p_our_service, p_evt_write->data[0]);
     }
-				NRF_LOG_INFO("Da ra khoi ham da ghi");
 }
-
-// ALREADY_DONE_FOR_YOU: Declaration of a function that will take care of some housekeeping of ble connections related to our service and characteristic
-
-//void ble_our_service_on_ble_evt(ble_evt_t const * p_ble_evt, void * p_context)
-//{
-//  	ble_os_t * p_our_service =(ble_os_t *) p_context;  
-//		// OUR_JOB: Step 3.D Implement switch case handling BLE events related to our service. 
-//		switch(p_ble_evt->header.evt_id)
-//		{
-//			case BLE_GAP_EVT_CONNECTED:
-//				p_our_service->conn_handle = p_ble_evt->evt.gap_evt.conn_handle;
-//			break;
-//			case BLE_GAP_EVT_DISCONNECTED:
-//				p_our_service->conn_handle = p_ble_evt->evt.gap_evt.conn_handle;			
-//			break;
-//			case BLE_GATTS_EVT_WRITE:
-//				da_ghi(p_our_service, p_ble_evt); // mode 2
-//			break;
-//			default:
-//				break;
-//		}
-//}
 
 void ble_our_service_on_ble_evt_1(ble_evt_t const * p_ble_evt, void * p_context)
 {
@@ -101,7 +76,7 @@ void ble_our_service_on_ble_evt_3(ble_evt_t const * p_ble_evt, void * p_context)
 				p_our_service->conn_handle = p_ble_evt->evt.gap_evt.conn_handle;			
 			break;
 			case BLE_GATTS_EVT_WRITE:
-				// do nothing
+				da_ghi(p_our_service, p_ble_evt); // su kien chuyen mode
 			break;
 			default:
 				break;
@@ -148,6 +123,7 @@ static uint32_t our_char_add(ble_os_t * p_our_service, ble_uuid128_t service_uui
 
 		attr_char_value.max_len = length;
 		attr_char_value.init_len = length;
+		attr_char_value.p_value = value;    
 
 		err_code = sd_ble_gatts_characteristic_add(p_our_service->service_handle,
 																			 &char_md,
