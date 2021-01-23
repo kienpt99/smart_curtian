@@ -95,7 +95,7 @@
 
 // Note: Definition of state variable of curtain. curtain_state_global = 0 (close) | curtain_state_global = 1 (open)
 uint8_t curtain_state_global = 2 ;
-uint8_t mode = 2;	// 1: mode 1, 2: mode 2
+uint8_t mode = 2;
 
 NRF_BLE_GATT_DEF(m_gatt);                                                       /**< GATT module instance. */
 NRF_BLE_QWR_DEF(m_qwr);                                                         /**< Context for the Queued Write module.*/
@@ -131,46 +131,44 @@ static TaskHandle_t m_logger_thread;                               // Freertos: 
 //// Freertos mode 1 : Ham callback cua adc_timer de doc gia tri tu adc, va gui du lieu vao message queue.(send)
 static void read_adc_timer_callback(TimerHandle_t xTimer)
 {
-	NRF_LOG_INFO("OK");
-//	if(mode == 1)
-//		{
-			UNUSED_PARAMETER(xTimer);
-			BaseType_t xStatus;
-			nrf_saadc_value_t adc_value;
-			nrfx_saadc_sample_convert(0,&adc_value);
-			NRF_LOG_FLUSH();
-			NRF_LOG_INFO("Gia tri doc duoc cua ADC: %d",adc_value);
-			if(adc_value > 100)
-				{
-					if(curtain_state_global != 1)
-						{
-							curtain_state_global = 1;
-							xStatus = xQueueOverwrite( xQueue, &curtain_state_global); // Freertos: block time = 0, not sure , khong wait khi queue is full.
-							if( xStatus != pdPASS )
+		UNUSED_PARAMETER(xTimer);
+		if(mode == 1)
+			{
+				BaseType_t xStatus;
+				nrf_saadc_value_t adc_value;
+				nrfx_saadc_sample_convert(0,&adc_value);
+				NRF_LOG_FLUSH();
+				NRF_LOG_INFO("Gia tri doc duoc cua ADC: %d",adc_value);
+				if(adc_value > 100)
+					{
+						if(curtain_state_global != 1)
 							{
-							/* The send operation could not complete because the queue was full -
-							this must be an error as the queue should never contain more than
-							one item! */
-							NRF_LOG_INFO("Khong gui duoc du lieu den queue ",adc_value);
+								curtain_state_global = 1;
+								xStatus = xQueueOverwrite( xQueue, &curtain_state_global); // Freertos: block time = 0, not sure , khong wait khi queue is full.
+								if( xStatus != pdPASS )
+								{
+								/* The send operation could not complete because the queue was full -
+								this must be an error as the queue should never contain more than
+								one item! */
+								NRF_LOG_INFO("Khong gui duoc du lieu den queue ",adc_value);
+								}
 							}
-						}
-				}else{
-					if(curtain_state_global != false)
-						{
-							curtain_state_global = 0;
-							xStatus = xQueueOverwrite( xQueue, &curtain_state_global);; // Freertos: block time = 0, not sure , khong wait khi queue is full.
-							if( xStatus != pdPASS )
+					}else{
+						if(curtain_state_global != false)
 							{
-							/* The send operation could not complete because the queue was full -
-							this must be an error as the queue should never contain more than
-							one item! */
-							NRF_LOG_INFO("Khong gui duoc du lieu den queue ",adc_value);
-							}
-						}				
-				}
-//			}
+								curtain_state_global = 0;
+								xStatus = xQueueOverwrite( xQueue, &curtain_state_global);; // Freertos: block time = 0, not sure , khong wait khi queue is full.
+								if( xStatus != pdPASS )
+								{
+								/* The send operation could not complete because the queue was full -
+								this must be an error as the queue should never contain more than
+								one item! */
+								NRF_LOG_INFO("Khong gui duoc du lieu den queue ",adc_value);
+								}
+							}				
+					}
+			}
 }
-
 
 // Freertos: Ham callback cua timer dong co de dieu khien dong co trong 1 khoang tgian.
 static void dong_co_timer_callback(TimerHandle_t xTimer)
@@ -212,36 +210,36 @@ void saadc_init(void)
 void open_button_callback(nrf_drv_gpiote_pin_t pin , nrf_gpiote_polarity_t action)
 	{
 		if(mode == 2)
+		{
+			BaseType_t xStatus;
+			curtain_state_global = 1;
+			xStatus = xQueueOverwrite( xQueue, &curtain_state_global); // Freertos: block time = 0, not sure , khong wait khi queue is full.
+			if( xStatus != pdPASS )
 			{
-				BaseType_t xStatus;
-				curtain_state_global = 1;
-				xStatus = xQueueOverwrite( xQueue, &curtain_state_global); // Freertos: block time = 0, not sure , khong wait khi queue is full.
-				if( xStatus != pdPASS )
-				{
-					/* The send operation could not complete because the queue was full -
-					this must be an error as the queue should never contain more than
-					one item! */
-					NRF_LOG_INFO("Khong gui duoc du lieu den queue");
-				}
+				/* The send operation could not complete because the queue was full -
+				this must be an error as the queue should never contain more than
+				one item! */
+				NRF_LOG_INFO("Khong gui duoc du lieu den queue");
 			}
+		}
 	}
 	
 // Note mode 2: Ham callback cua nut dong rem 
 void close_button_callback(nrf_drv_gpiote_pin_t pin , nrf_gpiote_polarity_t action)
 	{
 		if(mode == 2)
+		{
+			BaseType_t xStatus;
+			curtain_state_global = 0;
+			xStatus = xQueueOverwrite( xQueue, &curtain_state_global); // Freertos: block time = 0, not sure , khong wait khi queue is full.
+			if( xStatus != pdPASS )
 			{
-				BaseType_t xStatus;
-				curtain_state_global = 0;
-				xStatus = xQueueOverwrite( xQueue, &curtain_state_global); // Freertos: block time = 0, not sure , khong wait khi queue is full.
-				if( xStatus != pdPASS )
-				{
-					/* The send operation could not complete because the queue was full -
-					this must be an error as the queue should never contain more than
-					one item! */
-					NRF_LOG_INFO("Khong gui duoc du lieu den queue");
-				}
+				/* The send operation could not complete because the queue was full -
+				this must be an error as the queue should never contain more than
+				one item! */
+				NRF_LOG_INFO("Khong gui duoc du lieu den queue");
 			}
+		}
 	}
 
 // Note mode 2: Ham khoi tao GPIOTE
@@ -494,8 +492,8 @@ static void services_init(void)
     nrf_ble_qwr_init_t qwr_init = {0};
 		// ble+: khoi tao value ban dau cho characteristic
 		uint8_t value_1 = 0; // 0: mo rem, 1: dong rem
-		uint8_t value_2[6] = {0x00,0x00,0x00,0x00,0x00,0x00};	// ngay/thang/nam/nam/gio/phut
-		uint8_t value_3 = 2;	// 1: mode 1, 2: mode 2
+		uint8_t value_3 = 0;	// 1: mode 1, 2: mode 2
+		uint8_t value_2[6] = {0x12,0x23,0x34,0x45,0x56,0x67};	// ngay/thang/nam/nam/gio/phut
 
     // Initialize Queued Write Module.
     qwr_init.error_handler = nrf_qwr_error_handler;
@@ -718,7 +716,7 @@ static void vControlMotorTask( void *pvParameters )
  */
 static void curtain_write_handler(uint16_t conn_handle, ble_os_t * p_led_service, uint8_t curtain_state)
 {
-    if (curtain_state == 1 && mode == 2)
+    if (curtain_state && mode == 2)
     {
 			BaseType_t xStatus;
 			curtain_state_global = 1;
@@ -753,23 +751,15 @@ static void timer_service_callback(uint16_t conn_handle, ble_os_t * p_led_servic
 
 static void mode_selec_service_callback(uint16_t conn_handle, ble_os_t * p_led_service, uint8_t curtain_state)
 {
-		if (curtain_state == 1)
-    {
-			BaseType_t xStatus;
+	if(curtain_state == 1)
+		{
+			NRF_LOG_INFO("Da vao mode 1: Tu dong");
 			mode = 1;
-    }
-    else// if(mode == 2)
-    {
-			BaseType_t xStatus;
-			curtain_state_global = 0;
-			xStatus = xQueueOverwrite( xQueue, &curtain_state_global); // Freertos: block time = 0, not sure , khong wait khi queue is full.
-			if( xStatus != pdPASS )
-			{
-				/* The send operation could not complete because the queue was full -
-				this must be an error as the queue should never contain more than
-				one item! */
-				NRF_LOG_INFO("Khong gui duoc du lieu den queue ");
-			}
+		}
+	else if(curtain_state == 2)
+		{
+			NRF_LOG_INFO("Da vao mode 2: Thu cong");
+			mode = 2;
 		}
 }
 
@@ -1089,7 +1079,7 @@ int main(void)
 		// delete
 		dong_co_init();
 		gpio_init(); // mode 2
-//		saadc_init();
+		saadc_init();
 	
 	  services_init();
 		advertising_init();
